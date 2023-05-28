@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Item from "./Item";
 
 function ShoppingList({ items }) {
-  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
   
   function handleFilter (e) {
     setSelectedCategory(e.target.value)
@@ -10,11 +10,13 @@ function ShoppingList({ items }) {
     //need to take selectedCategory and have that be the updated list shown. 
   }
 
-  const filteredCategories = items.filter((items) => {
+  const filteredCategories = items.filter((item) => {
     // return ({selectedCategory}.includes(item.category))
-    return items.category.includes({selectedCategory})
-    
-    
+    if (selectedCategory === "All") {
+      return item
+    }
+    else if (selectedCategory === item.category) {
+      return  (selectedCategory === item.category)} 
   })
 
   return (
@@ -28,7 +30,7 @@ function ShoppingList({ items }) {
         </select>
       </div>
       <ul className="Items">
-        {items.map((item) => (
+        {filteredCategories.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
